@@ -505,11 +505,25 @@
             <div class="service-card__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V22h2v-3.08A7 7 0 0 0 19 11h-2Z"/></svg>
             </div>
+            <!-- Click-to-play video tile — same treatment as the gallery's video
+                 items (persistent play button, label on hover, caption bar), but it
+                 plays inline instead of opening a new tab. The YouTube player is only
+                 injected on click, so nothing third-party loads until someone presses play. -->
             <div class="service-card__media">
-              <picture>
-                <source type="image/webp" srcset="images/services/we-create-case-study-instagram.webp">
-                <img src="images/services/we-create-case-study-instagram.png" alt="Instagram &ldquo;We Create&rdquo; campaign case study" width="846" height="470" loading="lazy" decoding="async">
-              </picture>
+              <button class="service-card__play js-video-facade" type="button"
+                      data-video-id="0GEJpIToNWU"
+                      data-video-title="Case Study: Instagram We Create"
+                      aria-label="Play video: Case Study: Instagram We Create">
+                <picture>
+                  <source type="image/webp" srcset="images/services/we-create-case-study-instagram.webp">
+                  <img src="images/services/we-create-case-study-instagram.png" alt="" width="846" height="470" loading="lazy" decoding="async">
+                </picture>
+                <span class="service-card__play-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+                <span class="service-card__play-label" aria-hidden="true">View Video</span>
+                <span class="service-card__play-caption" aria-hidden="true">Case Study: Instagram We Create</span>
+              </button>
             </div>
             <div class="service-card__body">
               <p class="wordmark service-card__wordmark"><span class="wordmark__name">lapope</span><span class="wordmark__slash">//</span><span class="wordmark__tag">voiceovers</span></p>
@@ -825,6 +839,7 @@
   <!-- Deferred, at the bottom of body (per handbook). -->
   <script defer src="js/nav.js"></script>
   <script defer src="js/gallery.js"></script>
+  <script defer src="js/video-facade.js"></script>
   <script defer src="js/reveal.js"></script>
   <script defer src="js/form.js"></script>
 </body>

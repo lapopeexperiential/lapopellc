@@ -976,6 +976,94 @@
   transform: rotate(-45deg); /* CSS checkmark */
 }
 
+/* Click-to-play video tile on the Voiceovers card. Deliberately mirrors the
+   gallery's video items — persistent play button, label on hover, caption bar —
+   so a visitor reads the two as the same kind of thing. Values match
+   .gallery__hover-icon / .gallery__caption. */
+.service-card__play {
+  position: absolute;
+  inset: 0;
+  display: block;        /* no z-index: the poster keeps the card's navy tint,
+                            like cards 1 and 2. Only the controls below lift
+                            above .service-card__media::after. */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+.service-card__play-icon {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.14);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  transition: background-color 0.3s ease;
+}
+.service-card__play-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--white);
+  margin-left: 3px;      /* optically centre the triangle */
+}
+.service-card__play:hover .service-card__play-icon,
+.service-card__play:focus-visible .service-card__play-icon {
+  background-color: var(--accent);
+}
+.service-card__play-label {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 46px));
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--white);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.service-card__play:hover .service-card__play-label,
+.service-card__play:focus-visible .service-card__play-label {
+  opacity: 1;
+}
+.service-card__play-caption {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.75rem 0.95rem 0.85rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  color: var(--white);
+  background: linear-gradient(to top,
+    rgba(15, 27, 45, 0.9) 0%,
+    rgba(15, 27, 45, 0.5) 45%,
+    rgba(15, 27, 45, 0) 100%);
+  pointer-events: none;
+}
+/* Once the player is in, the card's gradient tint would sit on top of it. */
+.service-card__media.is-playing::after { content: none; }
+.service-card__media iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* External link on the Voiceovers card */
 .service-card__link {
   display: inline-flex;
