@@ -402,13 +402,17 @@
 .program-card__media {
   display: grid;
   place-items: center;           /* lockup sits dead centre of the panel */
-  min-height: 21rem;
-  padding: 3rem 1.5rem;
+  /* No min-height: the panel is only as tall as the lockup plus a modest
+     margin, so visitors reach the event details sooner */
+  padding: 1.75rem 1rem;
   text-align: center;
   background-color: var(--al-cream);
   border-bottom: 1px solid rgba(92, 31, 48, 0.12);
 }
 .program-card__media-inner {
+  /* Full width, so the logo's size container below never collapses to its
+     (zero) intrinsic width */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -436,8 +440,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1.75rem;
+  margin-top: 1.25rem;
   width: 100%;
+  /* Lets the tagline size itself against the lockup's own width (cqi) */
+  container-type: inline-size;
 }
 /* Wordmark stays artwork — it's Playfair Display Black, which the site doesn't
    load. Sized by width; the art is transparent, so it takes the cream ground. */
@@ -450,22 +456,63 @@
 .program-card__logo-rule {
   width: 4.125rem;   /* 66 units at the tagline's scale */
   height: 0.25rem;
-  margin-top: 1.1rem;
+  margin-top: 0.9rem;
   overflow: visible;
 }
 /* Tagline as live text, not artwork: Poppins 500 tracked caps in navy is exactly
-   what the guidelines call for, the site already loads Poppins, and real text
-   stays crisp and wraps on a phone instead of shrinking to an illegible strip. */
+   what the guidelines call for, and the site already loads Poppins.
+   Always one line. The line measures ~38.5em at 0.05em tracking, so the size is
+   the lockup width divided by 39 (a little spare), capped at 0.88rem — on a
+   phone that is roughly 7–8px; from tablet up it reaches the cap. Tracking is
+   eased to 0.05em on phones to buy back size, and restored to 0.1em at 48em. */
 .program-card__logo-tagline {
-  margin-top: 0.9rem;
-  max-width: 40rem;      /* wide enough to hold one line at desktop */
+  margin-top: 0.75rem;
+  white-space: nowrap;
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: clamp(0.62rem, 1.9vw, 0.88rem);
-  line-height: 1.7;
-  letter-spacing: 0.1em;
+  font-size: min(0.88rem, 100cqi / 39);
+  line-height: 1.5;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--al-navy);
+}
+
+/* Event details — date/time/price over venue, under the lockup. Separated
+   from the tagline by a hairline in the wine tint the panel already uses, so it
+   reads as information rather than part of the logo. Gold pipes echo the rule. */
+.program-card__details {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(92, 31, 48, 0.14);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+/* Phones: each row stacks at its outer pipe, which is hidden */
+.program-card__detail-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.1rem;
+}
+.program-card__detail-sep--outer { display: none; }
+.program-card__detail-row + .program-card__detail-row { margin-top: 0.3rem; }
+.program-card__detail { white-space: nowrap; }
+/* Spacing comes from the margin alone (no spaces in the markup), so every
+   pipe sits the same distance from its neighbours */
+.program-card__detail-sep {
+  margin-inline: 0.5rem;
+  color: var(--al-gold);
+}
+/* Row one is what people decide on — when and how much */
+.program-card__detail-row:first-child {
+  color: var(--al-wine);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.program-card__detail-row:last-child {
+  color: var(--al-navy);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 /* --- Body --------------------------------------------------------------- */
@@ -483,7 +530,25 @@
   font-style: italic;
   color: var(--ink);
 }
-/* Storefront row — stands where the "Sign up for Updates" button used to.
+/* Registration CTA, centred under the copy */
+.program-card__actions {
+  position: relative; /* anchor for the decorative arrow */
+  margin-top: 1.75rem;
+}
+
+/* Decorative arrow pointing at the CTA — same mark + bounce as the About
+   section. Hidden on phones, where there's no room beside the button. */
+.program-card__arrow {
+  display: none;
+  animation: arrow-bounce 4s ease-in-out infinite;
+}
+.program-card__arrow svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Storefront row — sits under the registration button.
    Capped and centred rather than bled across the card so the shops stay at a
    sensible scale; the crop keeps them touching, per "one streetscape, not
    separate icons". */
@@ -523,13 +588,41 @@
    since media queries add no specificity, anything put there would lose to
    the base declarations above. */
 @media (min-width: 48em) {
-  .program-card__media { min-height: 26rem; padding: 4rem 2.5rem; }
+  .program-card__media { padding: 2.5rem 2.5rem; }
+  /* ~41.2em at full tracking, so divide by 42 */
+  /* Tablet up: each row on one line, outer pipes back */
+  .program-card__detail-row {
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+  }
+  .program-card__detail-sep--outer { display: inline; }
+  .program-card__detail-row:first-child { font-size: 1.0625rem; }
+  .program-card__detail-row:last-child  { font-size: 0.9375rem; }
+  .program-card__logo-tagline {
+    letter-spacing: 0.1em;
+    font-size: min(0.88rem, 100cqi / 42);
+  }
   .program-card__body  { padding: 2.5rem; }
+
+  /* Arrow sits just left of the centred button, arcing over to point at it.
+     Offsets are measured from the centre line so it tracks the button
+     regardless of how wide the card gets. */
+  .program-card__arrow {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -18px;
+    left: 50%;
+    margin-left: -250px;
+    width: 120px;
+    pointer-events: none;
+  }
 }
 
 @media (min-width: 64em) {
   .programs { padding-block: 5rem; }
-  .program-card__media { padding: 5rem 3rem; }
+  .program-card__media { padding: 3rem 3rem; }
   .program-card__body  { padding: 3rem; }
 }
 
@@ -1259,6 +1352,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .about__arrow { animation: none; }
+  .program-card__arrow { animation: none; }
 }
 .about__img img {
   width: 100%;

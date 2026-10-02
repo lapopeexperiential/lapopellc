@@ -146,11 +146,8 @@
          CURRENT PROGRAMS — in-development event series
          One .program-card per program; the grid holds more than one if needed.
 
-         TO FINISH THIS SECTION, two drop-ins (both marked TODO below):
-           1. SIGNUP LINK — replace href="#" on the CTA with the mailing-list /
-              signup URL.
-           2. PARTNER / SPONSOR CONTACT — drop Dana Michel's contact details into
-              the .program-card__contact block and uncomment it.
+         The CTA links to the Eventbrite event page; registration there was
+         not live yet as of Oct 2026.
          ========================================================================== -->
     <section class="programs" id="programs">
       <div class="container">
@@ -158,8 +155,7 @@
           <span class="topper">Now Building</span>
           <h2 class="programs__title">Current Programs</h2>
           <p class="programs__text">
-            Alongside client work, lapope // experiential develops its own event
-            programming. Here's what's in production right now.
+            Alongside client work, lapope // experiential develops its own event programs and activations. Here’s what we’re producing right now.
           </p>
         </header>
 
@@ -197,6 +193,24 @@
                     Acquire a business. Preserve a legacy. Strengthen a community.
                   </p>
                 </div>
+
+                <!-- Event details. On phones each row stacks at its outer pipe
+                     (date over time + price, venue over address) and those pipes
+                     are hidden, so no separator is ever left dangling at a line
+                     break; from tablet up each row runs on one line. The pipes
+                     are decorative and hidden from screen readers. -->
+                <ul class="program-card__details">
+                  <li class="program-card__detail-row">
+                    <span class="program-card__detail"><time datetime="2026-11-12">Thursday, November 12</time></span>
+                    <span class="program-card__detail-sep program-card__detail-sep--outer" aria-hidden="true">|</span>
+                    <span class="program-card__detail"><time datetime="2026-11-12T17:00">5:00</time> to <time datetime="2026-11-12T20:00">8:00 PM</time><span class="program-card__detail-sep" aria-hidden="true">|</span>$25</span>
+                  </li>
+                  <li class="program-card__detail-row">
+                    <span class="program-card__detail">St. Francis College</span>
+                    <span class="program-card__detail-sep program-card__detail-sep--outer" aria-hidden="true">|</span>
+                    <span class="program-card__detail">179 Livingston St, Brooklyn</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -215,10 +229,23 @@
                 <strong>First stop this November: Brooklyn.</strong>
               </p>
 
-              <!-- The storefront row stands where the "Sign up for Updates" button
-                   used to: Dana's email just below is the contact route now, so the
-                   CTA (and the arrow that pointed at it) came out. Cropped from the
-                   brand artwork so the shops still touch with no gaps. -->
+              <div class="program-card__actions">
+                <!-- Decorative arrow pointing at the CTA — the same hand-drawn mark
+                     used in the About section. Desktop/tablet only (no room beside
+                     the button on phones). -->
+                <span class="program-card__arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><g fill="#2456C9"><g><path d="m385.54 271.64-.8.45.8-.45ZM447.89 211.06c-18.76-27.31-44.82-59.56-66.31-83.65a9.18 9.18 0 0 0-5.38-3.7c-10.65-2.09-14.53 7.22-6.33 14.04 18.97 23.31 37.56 47.09 54.62 71.86-27.69-9-80.46-12.81-89.57-14-78.54-5.99-162.26 9.22-223.16 62.1-32.32 27.27-66.02 69.31-65.22 113.55-.02 7.28 17.74 8.59 19.2-5.66 7.56-72.25 95.56-133.37 162.44-146.43 55.03-12.22 112.14-8.65 167.2 1.5 23.18 4.25 22.56 5.37 29.51 7.79-17.27 11.16-35.79 20.45-53.52 30.85-6.49 5.38-28.25 9.44-21.03 20.84 10.16 11.23 24.87-4.35 35.21-8.51a2123.25 2123.25 0 0 0 33.44-19.16c10.18-7.17 31.93-15.13 34.5-27.99.37-5.08-2.96-9.39-5.57-13.44Z"></path></g></g></svg>
+                </span>
+
+                <!-- Registration is not live on Eventbrite yet (Oct 2026): until it
+                     is, this link may land on an unavailable-event page. -->
+                <a class="btn btn--solid btn--arrow"
+                   href="https://www.eventbrite.com/e/2002596155008?aff=oddtdtcreator"
+                   target="_blank" rel="noopener">Register on Eventbrite</a>
+              </div>
+
+              <!-- Storefront row, cropped from the brand artwork so the shops still
+                   touch with no gaps. -->
               <img class="program-card__street"
                    src="images/programs/acquire-local-storefronts.svg"
                    alt="" aria-hidden="true"
@@ -232,7 +259,7 @@
                   resource partners</strong> who want to help carry good businesses
                   forward. If that&rsquo;s you, please contact
                   <strong>Dana Michel</strong> at
-                  <a href="mailto:dana@acquirelocal.org">dana@acquirelocal.org</a>.
+                  <a href="mailto:dana@acquirelocal.com">dana@acquirelocal.com</a>.
                 </p>
               </div>
             </div>
