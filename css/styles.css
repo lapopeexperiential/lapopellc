@@ -406,7 +406,7 @@
      margin, so visitors reach the event details sooner */
   padding: 1.75rem 1rem;
   text-align: center;
-  background-color: var(--al-cream);
+  background-color: var(--white);
   border-bottom: 1px solid rgba(92, 31, 48, 0.12);
 }
 .program-card__media-inner {
